@@ -9,11 +9,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: Rubik;
-  }
-
-  p {
-    font-weight: 500;
-    font-size: 16px;
+    font-size: 1em;
   }
 `;
  

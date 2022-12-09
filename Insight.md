@@ -9,9 +9,9 @@
    - card--reply   - reduces or increases the `width` of the card depending on the class assigned
    - card__vote
     - card__vote__item
-    - card__sign
-      - :hover
-    - card__number
+      - card__sign
+        - :hover
+      - card__number
    - card__info
      - card__header
        - card__author

@@ -9,7 +9,7 @@ const theme = {
 }
 
 const Container = styled.div`
-  background-color: ${props => props.theme.colors.LightGrayishBlue};
+  background-color: ${props => props.theme.colors.VeryLightGray};
   padding: 30px 10px;
   width: 100%;
   height: 100%;
@@ -19,7 +19,7 @@ const Container = styled.div`
 function App(props) {
   return (
     <ThemeProvider theme={ theme }>
-      <GlobalStyle />
+        <GlobalStyle />
         <Container>
           <Card />
         </Container>
