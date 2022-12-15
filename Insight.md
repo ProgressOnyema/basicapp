@@ -63,3 +63,8 @@
     - Integrating mongodb
     - create routes for handling CRUD operations
     - building models for comments and replies
+
+
+
+#### What I learnt from Project
+1. Look for things that are similar
