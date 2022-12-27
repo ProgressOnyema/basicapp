@@ -1,19 +1,32 @@
+import { Button, Container, CreateForm, Image } from './Layout';
 import styled from 'styled-components';
-import { Button, ButtonWrapper, Container, FormContent, Image } from './Layout';
-import juliusomo from "../assets/juliusomo.png"
-
-
-const Content = styled(FormContent)`
-    border: 1px solid ${props => props.theme.colors.LightGray};
+import { useContext, useState } from 'react';
+import { Context } from '../context_api';
+// import juliusomo from "../images/avatars/image-juliusomo.png";
+const FormButton = styled(Button)`
+  width: 60%;
+  justify-self: end;
 `
 
 
 const CardForm = () => {
+
+  const { handleCreation } = useContext(Context)
+  const [value, setValue] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const comment = value;
+    handleCreation(comment)
+    setValue("")
+    // console.log(comment)
+  }
+
   return (
     <Container>
-        <Content value={"Add a comment..."} onChange={e => e} />
-        <Image src={ juliusomo }/>
-        <ButtonWrapper><Button blue >send</Button></ButtonWrapper>
+        <CreateForm placeholder="Add a comment..." value={value}  onChange={(e) => setValue(e.target.value)} />
+        <Image src="images/avatars/image-juliusomo.png" />
+        <FormButton blue onClick={handleSubmit} >send</FormButton>
     </Container>
   )
 }
