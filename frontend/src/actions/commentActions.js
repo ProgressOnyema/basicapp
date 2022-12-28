@@ -1,0 +1,11 @@
+export const ADD_COMMENT = "ADD_COMMENT"
+export const DELETE_COMMENT = "DELETE_COMMENT"
+export const EDIT_COMMENT = "EDIT_COMMENT"
+export const UPVOTE_COMMENT = "UPVOTE_COMMENT"
+export const DOWNVOTE_COMMENT = "DOWNVOTE_COMMENT"
+
+export const ADD_REPLY = "ADD_REPLY"
+export const DELETE_REPLY = "DELETE_REPLY"
+export const EDIT_REPLY = "EDIT_REPLY"
+export const UPVOTE_REPLY = "UPVOTE_REPLY"
+export const DOWNVOTE_REPLY = "DOWNVOTE_REPLY"

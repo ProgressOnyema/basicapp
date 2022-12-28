@@ -1,4 +1,7 @@
+import { useContext } from "react"
 import styled from "styled-components"
+import { DOWNVOTE_COMMENT, UPVOTE_COMMENT } from "../actions/commentActions"
+import { CommentContext } from "../contexts/CommentProvider"
 
 
 const Main = styled.div`
@@ -34,11 +37,15 @@ const VoteNumber = styled(VoteItem)`
 `
 
 const Vote = (props) => {
+
+  const { dispatch } = useContext(CommentContext);
+
   return (
     <Main>
-        <VoteSign>+</VoteSign>
+        <VoteSign onClick={() => dispatch({type: UPVOTE_COMMENT, payload: props.id})}>+</VoteSign>
         <VoteNumber>{ props.score }</VoteNumber>
-        <VoteSign>-</VoteSign>
+        {props.score <= 0 ? <VoteSign>-</VoteSign> 
+        : <VoteSign onClick={() => dispatch({type: DOWNVOTE_COMMENT, payload: props.id})}>-</VoteSign> }
     </Main>
   )
 }

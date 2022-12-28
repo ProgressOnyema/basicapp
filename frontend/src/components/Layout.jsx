@@ -86,7 +86,7 @@ export const Image = styled.img`
 
 export const Button = styled.button`
     display: inline-flex;
-    justify-content: center;
+    justify-self: end;
     padding: .8rem 1rem;
     border: none;
     border-radius: 5px;
@@ -103,7 +103,12 @@ export const Button = styled.button`
   }
 `
 
-// Buld he reply card and container
+export const SmallButton = styled(Button)`
+    justify-content: center;
+    width: 60%;
+`
+
+
 export const ReplyList = styled.ul`
     list-style: none;
     position: relative;

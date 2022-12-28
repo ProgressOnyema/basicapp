@@ -1,7 +1,8 @@
 import { useContext } from "react"
 import { FaPen, FaReply, FaTrash } from "react-icons/fa"
 import styled, { css } from "styled-components"
-import { Context } from "../context_api"
+import { DELETE_COMMENT } from "../actions/commentActions";
+import { CommentContext } from "../contexts/CommentProvider";
 
 
 const Main = styled.div`
@@ -29,21 +30,22 @@ const CardAction = styled.div`
 
 const CardActions = (props) => {
 
-  const { data } = useContext(Context);
-
+  const { state, dispatch } = useContext(CommentContext);
+  // Work on the card actions for replies
   return (
     <Main>
-        {props.username === data.currentUser.username ? (
+        {props.username === state.currentUser.username ? 
         <>
-          <CardAction red>
+          <CardAction red onClick={() => dispatch({type: DELETE_COMMENT, payload: props.id})}>
               <FaTrash style={{ fontSize: ".9em", marginRight: "5px" }} />Delete
           </CardAction>
-          <CardAction blue>
+          
+          <CardAction blue onClick={props.handleEditToggle}>
               <FaPen style={{ fontSize: ".9em", marginRight: "5px" }} />Edit
           </CardAction>
         </>
-        ): (
-        <CardAction blue>
+        : (
+        <CardAction blue onClick={() => props.handleReplyMode(props.id)}>
             <FaReply style={{ fontSize: ".9em", marginRight: "5px" }} />Reply
         </CardAction>)}
     </Main>

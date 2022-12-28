@@ -4,9 +4,8 @@ import { ThemeProvider } from "styled-components";
 import styled from "styled-components";
 import CardForm from "./components/CardForm";
 import CommentList from "./components/CommentList";
-import ContextProvider from "./ContextProvider";
 import { useEffect } from "react";
-import data from "./data.json";
+import CommentProvider from "./contexts/CommentProvider";
 
 
 const theme = {
@@ -23,15 +22,15 @@ const Container = styled.div`
 function App() {
 
   return (
-    <ContextProvider>
+    <CommentProvider>
       <ThemeProvider theme={ theme }>
         <GlobalStyle />
         <Container>
           <CommentList />
-          <CardForm />
+          <CardForm comment />
         </Container>
       </ThemeProvider>
-    </ContextProvider>
+    </CommentProvider>
       
     
     

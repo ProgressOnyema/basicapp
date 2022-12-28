@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import styled from "styled-components"
-import { Context } from "../context_api"
+import { CommentContext } from "../contexts/CommentProvider"
 import { Image, YouTag } from "./Layout"
 
 
@@ -36,7 +36,7 @@ const Date = styled.p`
 
 const AuthContent = (props) => {
 
-  const { data } = useContext(Context);
+  const { state } = useContext(CommentContext);
 
   return (
     <Main>
@@ -44,7 +44,7 @@ const AuthContent = (props) => {
             <Image src={ props.image } />
             <NameTag>
             <h4>{ props.username }</h4>
-            { props.username === data.currentUser.username ? <YouTag>you</YouTag> : ""}
+            { props.username === state.currentUser.username ? <YouTag>you</YouTag> : ""}
             </NameTag>
             <Date>{ props.createdAt }</Date>
         </Author>
