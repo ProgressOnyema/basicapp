@@ -7,7 +7,7 @@ export const CommentReducer = (state, action) => {
             const comments = [...state.comments, {
                 id: uuid(),
                 content: action.payload,
-                createdAt: "just now",
+                createdAt: Date.now(),
                 score: 0,
                 user: {
                 image: {
@@ -68,15 +68,15 @@ export const CommentReducer = (state, action) => {
                         replies: [...comment.replies, {
                             id: uuid(),
                             content: action.payload.content,
-                            createdAt: "just now",
+                            createdAt: Date.now(),
                             score: 0,
                             replyingTo: action.payload.replyingTo,
                             user: {
                                 image: { 
-                                png: "images/avatars/image-juliusomo.png",
-                                webp: "images/avatars/image-juliusomo.webp"
+                                png: state.currentUser.image.png,
+                                webp: state.currentUser.image.webp
                                 },
-                                username: "juliusomo"
+                                username: state.currentUser.username
                             }
                         }]
                     };
@@ -86,13 +86,80 @@ export const CommentReducer = (state, action) => {
             })
             return {...state, comments: added_replies};
         case DELETE_REPLY:
-            return state
+            const delete_replies = state.comments.map((comment) => {
+                if(comment.id === action.payload.commentId){
+                    const new_delete_comment = {
+                        ...comment,
+                        replies: comment.replies.filter(reply => reply.id !== action.payload.replyId)
+                    }
+                    return new_delete_comment
+                }
+                return comment
+            })
+            return {...state, comments: delete_replies}
         case EDIT_REPLY:
-            return state
+            const edited_comments = state.comments.map(comment => {
+                if(comment.id === action.payload.commentId){
+                    const new_edited_comment = {
+                        ...comment,
+                        replies: comment.replies.map(reply => {
+                            if(reply.id === action.payload.replyId){
+                                const new_edited_reply = {
+                                    ...reply,
+                                    content: action.payload.content
+                                }
+                                return new_edited_reply
+                            }
+                            return reply
+                        })
+                    }
+                    return new_edited_comment
+                }
+                return comment
+            })
+            return {...state, comments: edited_comments}
         case UPVOTE_REPLY:
-            return state
+            const upvoted_comments = state.comments.map(comment => {
+                if(comment.id === action.payload.commentId){
+                    const new_comment = {
+                        ...comment,
+                        replies: comment.replies.map(reply => {
+                            if(reply.id === action.payload.replyId){
+                                const new_edited_reply = {
+                                    ...reply,
+                                    score: reply.score + 1
+                                }
+                                return new_edited_reply
+                            }
+                            return reply
+                        })
+                    }
+                    return new_comment
+                }
+                return comment
+            })
+            return {...state, comments: upvoted_comments}
         case DOWNVOTE_REPLY:
-            return state
+            const downvoted_comments = state.comments.map(comment => {
+                if(comment.id === action.payload.commentId){
+                    const new_comment = {
+                        ...comment,
+                        replies: comment.replies.map(reply => {
+                            if(reply.id === action.payload.replyId){
+                                const new_edited_reply = {
+                                    ...reply,
+                                    score: reply.score - 1
+                                }
+                                return new_edited_reply
+                            }
+                            return reply
+                        })
+                    }
+                    return new_comment
+                }
+                return comment
+            })
+            return {...state, comments: downvoted_comments}
         default:
             return state;
     }

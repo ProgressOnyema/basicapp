@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { FaPen, FaReply, FaTrash } from "react-icons/fa"
 import styled, { css } from "styled-components"
-import { DELETE_COMMENT } from "../actions/commentActions";
+import { DELETE_COMMENT, DELETE_REPLY } from "../actions/commentActions";
 import { CommentContext } from "../contexts/CommentProvider";
 
 
@@ -30,13 +30,33 @@ const CardAction = styled.div`
 
 const CardActions = (props) => {
 
-  const { state, dispatch } = useContext(CommentContext);
-  // Work on the card actions for replies
+  const { state, handleModalToggle } = useContext(CommentContext);
+
+  const handleActions = () => {
+    if(props.isComment === true){
+      handleModalToggle({isComment: props.isComment, commentId: props.commentId})
+    }
+    else if(props.isReply === true){
+      handleModalToggle({isReply: props.isReply, commentId: props.commentId, replyId: props.replyId})
+    }
+
+  }
+
+  const handleReply = () => {
+    if(props.isComment === true){
+      props.handleReplyMode(props.commentId)
+    }
+    else if(props.isReply === true){
+      props.handleReplyMode(props.replyId)
+    }
+  }
+
+
   return (
     <Main>
         {props.username === state.currentUser.username ? 
         <>
-          <CardAction red onClick={() => dispatch({type: DELETE_COMMENT, payload: props.id})}>
+          <CardAction red onClick={handleActions}>
               <FaTrash style={{ fontSize: ".9em", marginRight: "5px" }} />Delete
           </CardAction>
           
@@ -45,7 +65,7 @@ const CardActions = (props) => {
           </CardAction>
         </>
         : (
-        <CardAction blue onClick={() => props.handleReplyMode(props.id)}>
+        <CardAction blue onClick={handleReply}>
             <FaReply style={{ fontSize: ".9em", marginRight: "5px" }} />Reply
         </CardAction>)}
     </Main>

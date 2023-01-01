@@ -17,12 +17,15 @@ const CommentList = () => {
     setId(id)
   }
 
+  console.log(state.comments)
+
   return (
     <div>
         {state.comments && state.comments.map((comment, key) =>
             <div key={key}>
             <Card  
-            id={comment.id}
+            isComment={true}
+            commentId={comment.id}
             content={comment.content} 
             createdAt={comment.createdAt} score={comment.score} 
             image={comment.user.image.png} username={comment.user.username}
@@ -33,14 +36,16 @@ const CommentList = () => {
                 <div key={key}>
                   <li>
                     <Card 
-                    id={reply.id}
+                    isReply={true}
+                    commentId={comment.id}
+                    replyId={reply.id}
                     replyingTo={reply.replyingTo}
                     content={reply.content} 
                     createdAt={reply.createdAt} score={reply.score} 
                     image={reply.user.image.png} username={reply.user.username}
                     handleReplyMode={handleReplyMode} />
                   </li>
-                  {replyMode && reply.id === id ? <CardForm reply id={reply.id} username={reply.user.username} /> : ""}
+                  {replyMode && reply.id === id ? <CardForm reply id={comment.id} username={reply.user.username} /> : ""}
                 </div>
               ))}
             </ReplyList>

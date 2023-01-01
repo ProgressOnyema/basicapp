@@ -7,8 +7,9 @@ import { CommentContext } from '../contexts/CommentProvider';
 
 const CardForm = (props) => {
 
-  const { dispatch } = useContext(CommentContext)
+  const { state, dispatch } = useContext(CommentContext)
   const [value, setValue] = useState("");
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,7 +21,7 @@ const CardForm = (props) => {
     else if(props.reply){
       dispatch({type: ADD_REPLY, payload: {
         id: props.id,
-        content: comment,
+        content: value,
         replyingTo: props.username,
       }})
     }
@@ -30,8 +31,10 @@ const CardForm = (props) => {
 
   return (
     <Container>
-        <CreateForm placeholder="Add a comment..." value={value}  onChange={(e) => setValue(e.target.value)} />
-        <Image src="images/avatars/image-juliusomo.png" />
+        <CreateForm placeholder='Add a comment...' 
+        value={value}  
+        onChange={(e) => setValue(e.target.value)} />
+        <Image src={state.currentUser.image.webp} />
         {props.comment ? <SmallButton blue onClick={handleSubmit}>send</SmallButton> 
         : <SmallButton blue onClick={handleSubmit}>update</SmallButton>}
         

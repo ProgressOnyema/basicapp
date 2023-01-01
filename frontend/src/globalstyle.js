@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: Rubik;
     font-size: 1em;
-    letter-spacing: -.01em;
+    letter-spacing: -.02rem !important;
     background-color: ${Colors.VeryLightGray};
   }
 `;

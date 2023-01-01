@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import styled from "styled-components"
-import { DOWNVOTE_COMMENT, UPVOTE_COMMENT } from "../actions/commentActions"
+import { DOWNVOTE_COMMENT, DOWNVOTE_REPLY, UPVOTE_COMMENT, UPVOTE_REPLY } from "../actions/commentActions"
 import { CommentContext } from "../contexts/CommentProvider"
 
 
@@ -42,10 +42,12 @@ const Vote = (props) => {
 
   return (
     <Main>
-        <VoteSign onClick={() => dispatch({type: UPVOTE_COMMENT, payload: props.id})}>+</VoteSign>
+        <VoteSign onClick={props.isComment ? () => dispatch({type: UPVOTE_COMMENT, payload: props.commentId}) 
+        : () => dispatch({type: UPVOTE_REPLY, payload: {commentId: props.commentId, replyId: props.replyId}})}>+</VoteSign>
         <VoteNumber>{ props.score }</VoteNumber>
         {props.score <= 0 ? <VoteSign>-</VoteSign> 
-        : <VoteSign onClick={() => dispatch({type: DOWNVOTE_COMMENT, payload: props.id})}>-</VoteSign> }
+        : <VoteSign onClick={props.isComment ? () => dispatch({type: DOWNVOTE_COMMENT, payload: props.commentId}) 
+        : () => dispatch({type: DOWNVOTE_REPLY, payload: {commentId: props.commentId, replyId: props.replyId}})}>-</VoteSign> }
     </Main>
   )
 }

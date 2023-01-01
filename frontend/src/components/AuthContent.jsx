@@ -1,7 +1,9 @@
 import { useContext } from "react"
 import styled from "styled-components"
+import Moment from "react-moment";
+import 'moment-timezone';
 import { CommentContext } from "../contexts/CommentProvider"
-import { Image, YouTag } from "./Layout"
+import { Image, YouTag } from "./Layout";
 
 
 
@@ -22,21 +24,24 @@ const NameTag = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-left: 1rem;
+  margin-left: .8rem;
 
   h4 {
     color: ${props => props.theme.colors.DarkBlue};
   }
 `
 
-const Date = styled.p`
+const DatePosted = styled.p`
   display: inline;
-  margin-left: 1rem;
+  margin-left: .8rem;
 `
 
+const date = Date.now();
+console.log(date);
 const AuthContent = (props) => {
 
   const { state } = useContext(CommentContext);
+  
 
   return (
     <Main>
@@ -46,7 +51,7 @@ const AuthContent = (props) => {
             <h4>{ props.username }</h4>
             { props.username === state.currentUser.username ? <YouTag>you</YouTag> : ""}
             </NameTag>
-            <Date>{ props.createdAt }</Date>
+            <DatePosted><Moment fromNow>{ props.createdAt }</Moment></DatePosted>
         </Author>
     </Main>
   )

@@ -17,11 +17,11 @@ export const Container = styled.div`
 
     p {
     color: ${props => props.theme.colors.GrayishBlue};
-    font-weight: 500;
+    font-weight: 400;
     }
 
     @media ${device.mobileM}{
-    max-width: 100%;
+        width: 100%;
     }
 `
 
@@ -68,8 +68,8 @@ export const ReplyingTo = styled.h4`
 
 
 export const YouTag = styled.span`
-    font-size: 14px;
-    margin-left: .5rem;
+    font-size: 0.7rem;
+    margin-left: .3rem;
     padding: 0 .5rem;
     padding-bottom: .2rem;
     border-radius: 3px;
@@ -87,13 +87,15 @@ export const Image = styled.img`
 export const Button = styled.button`
     display: inline-flex;
     justify-self: end;
+    font-weight: 700;
     padding: .8rem 1rem;
     border: none;
     border-radius: 5px;
     text-transform: uppercase;
 
     ${props => props && css`
-        background-color: ${props => props.blue ? props => props.theme.colors.ModerateBlue : props => props.theme.colors.SoftRed};
+        background-color: ${props => props.blue ? props => props.theme.colors.ModerateBlue 
+        : props.grayishblue ? props => props.theme.colors.GrayishBlue : props => props.theme.colors.SoftRed};
         color: ${ Colors.White };
     `};
 
@@ -108,6 +110,12 @@ export const SmallButton = styled(Button)`
     width: 60%;
 `
 
+export const BigButton = styled(Button)`
+    font-size: 14px;
+    justify-content: center;
+    padding: 1rem 1.2rem;
+    width: 48%;
+`
 
 export const ReplyList = styled.ul`
     list-style: none;

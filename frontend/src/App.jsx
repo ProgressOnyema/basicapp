@@ -4,8 +4,9 @@ import { ThemeProvider } from "styled-components";
 import styled from "styled-components";
 import CardForm from "./components/CardForm";
 import CommentList from "./components/CommentList";
-import { useEffect } from "react";
-import CommentProvider from "./contexts/CommentProvider";
+import { CommentContext } from "./contexts/CommentProvider";
+import Modal from "./components/Modal";
+import { useContext } from "react";
 
 
 const theme = {
@@ -21,16 +22,17 @@ const Container = styled.div`
 
 function App() {
 
+  const { showModal, data } = useContext(CommentContext)
+
   return (
-    <CommentProvider>
       <ThemeProvider theme={ theme }>
         <GlobalStyle />
         <Container>
+          { showModal ? <Modal/> : "" }
           <CommentList />
           <CardForm comment />
         </Container>
       </ThemeProvider>
-    </CommentProvider>
       
     
     
